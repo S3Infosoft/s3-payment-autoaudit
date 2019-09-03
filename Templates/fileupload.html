@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+    <nav class="navbar sticky-top navbar-light bg-light">   
+        <div>
+            <a class="navbar-brand" href="" style="color:purple;">Home Page</a>
+        </div>
+    </nav>
+    <div class = "container" style = "padding-top: 50px;">
+        <div class = "row">
+            <div class = "col-sm-4"></div>
+            <div class = "col-sm-4" style = "border: 1px solid gray; padding:40px;">
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

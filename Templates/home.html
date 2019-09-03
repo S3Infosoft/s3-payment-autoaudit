@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+    <nav class="navbar sticky-top navbar-light bg-light">
+        <div>
+            <a class="navbar-brand" href="/fileupload" style="color:red;">Upload a File</a>
+        </div>
+    </nav>
+
+    <div style="padding:30px;">
+    {% for key,i in data.items %}
+        <br>
+        <p><h4>{{ key }}</h4></p>
+        <br>
+        {% if i|length %}
+            <table class="table table-bordered table-dark table-striped">
+                <thead>
+                    <tr>
+                        {% for j in i.0   %}
+                            <td align = 'center'>{{ j }}</td>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for j in i %}
+                    <tr>
+                        {% for key, value in j.items %}
+                            <td>{{ value }}</td>
+                        {% endfor %}                 
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table> 
+        {% else %}
+            <h5><p>NO Reecords Found!!</p></h5>
+        {% endif %}  
+    {% endfor %} 
+    </div>
+
+{% endblock body %}
