@@ -1,2 +1,0 @@
-entity_id,TYPE,debit,credit,amount,currency,fee,tax,on_hold,settled,created_at,settled_at,settlement_id,description,notes,payment_id,settlement_utr,order_id,order_receipt,method,issuer_name,card_network,card_issuer,card_type,dispute_id
-pay_D0H9OtFvmuE2tu,payment,0,6000,6000,INR,141.6,21.6,0,1,31-07-19 18:12,03/08/19 10:03,D1KWW3gMeEGXFf,#inv_D0G0s3X7C4l17w,{},D0H9OtFvmuE2tu,AXISCN0037010859,D0G0s6OT1RTZ2M,,card,HDFC,MasterCard,HDFC,credit,
