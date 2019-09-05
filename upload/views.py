@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse
 from .forms import FileUploadForm,Type1Form,Type2Form,Type3Form,Type4Form,Type5Form,Type6Form,Type7Form
-from .methods import process,handle_uploaded_file
+from .methods import process
 from .models import Type1,Type2,Type3,Type4,Type5,Type6,Type7
 import sys
 import os
@@ -48,10 +48,11 @@ def fileupload(request):
     if request.method =='POST':
         form = FileUploadForm(request.POST,request.FILES)
         if form.is_valid():
-            Type = int(request.POST['Type'])
-            FileName = handle_uploaded_file(request.FILES['FileName'],Type)
+            FileName = request.FILES['FileName']
             Type = int(request.POST['Type'])
             res = process(FileName,Type)
+            if res == -1:
+                return render(request,'failure.html')
             for d in res: 
                 try:
                     form1 = TypeForm(d,Type)  

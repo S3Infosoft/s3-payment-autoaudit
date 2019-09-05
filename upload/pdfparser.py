@@ -3,9 +3,7 @@ import re
 import os
 
 class MMT_PDF_Parser:
-    def __init__(self,pdf_file_loc):
-        pdf_file_loc = os.path.join('./upload/Files',pdf_file_loc)
-        self.pdf_object = open(pdf_file_loc,'rb')
+    def __init__(self,pdf_object):
         self.pdf_reader = PyPDF2.PdfFileReader(self.pdf_object)
         self.pdf_data = ""
         for page_num in range(self.__page_count__()):
@@ -104,5 +102,9 @@ class MMT_PDF_Parser:
         return pages_count
 
 def parser(FileName):
-    obj = MMT_PDF_Parser(FileName)
+    try:
+        pdf_object = open(FileName,'rb')
+    except:
+        return -1    
+    obj = MMT_PDF_Parser(pdf_object)
     return obj.Data()
