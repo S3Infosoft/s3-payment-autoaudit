@@ -23,3 +23,12 @@ Usage :
         1)In the Home Page,Click on Manual Audit Option.
         2)Once the link is clicked, Auto Audit occurs.Once done all those records that failed    to validate automatically (require manual audit) are displayed.
         3)Check according to the business rules, that only records that failed validation are    displayed.
+
+### Docker build
+
+``` docker-compose build ```
+
+### Docker run
+
+``` docker-compose up```
+
