@@ -4,7 +4,7 @@ import os
 
 class MMT_PDF_Parser:
     def __init__(self,pdf_object):
-        self.pdf_reader = PyPDF2.PdfFileReader(self.pdf_object)
+        self.pdf_reader = PyPDF2.PdfFileReader(pdf_object)
         self.pdf_data = ""
         for page_num in range(self.__page_count__()):
             self.pdf_data += self.__page_data__(page_num)
@@ -105,6 +105,6 @@ def parser(FileName):
     try:
         pdf_object = open(FileName,'rb')
     except:
-        return -1    
+        return -1  
     obj = MMT_PDF_Parser(pdf_object)
     return obj.Data()

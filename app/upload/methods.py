@@ -57,7 +57,8 @@ def process(FileName,Type):
         return Type7(FileName)     
 
 def Type1(FileName):
-    result = parser(FileName) 
+    handle_uploaded_file(FileName)
+    result = parser('MMT.pdf') 
     if result == -1:
         return result   
     result = Dictionary(result)
@@ -70,6 +71,7 @@ def Type1(FileName):
         if v == 0.0:
             result[k] = None
     result1.append(result)
+    os.remove('MMT.pdf')
     return result1
 
 
@@ -85,8 +87,9 @@ def Type2(FileName):
         res = result.loc[i].fillna(0)
         res = res.to_dict()
         res = Dictionary(res)
-        for i in result:
+        for i in res:
             if i not in fields:
+                print(i)
                 return -1
         for k,v in res.items():
             if v == 0.0:
@@ -108,7 +111,7 @@ def Type3(FileName):
         res = result.loc[i].fillna(0)
         res = res.to_dict()
         res = Dictionary(res)
-        for i in result:
+        for i in res:
             if i not in fields:
                 return -1
         for k,v in res.items():
@@ -130,7 +133,7 @@ def Type4(FileName):
         res = result.loc[i].fillna(0)
         res = res.to_dict()
         res = Dictionary(res)
-        for i in result:
+        for i in res:
             if i not in fields:
                 return -1
         for k,v in res.items():
@@ -151,7 +154,7 @@ def Type5(FileName):
         res = result.loc[i].fillna(0)
         res = res.to_dict()
         res = Dictionary(res)
-        for i in result:
+        for i in res:
             if i not in fields:
                 return -1
         for k,v in res.items():
@@ -173,9 +176,6 @@ def Type6(FileName):
         res = result.loc[i].fillna(0)
         res = res.to_dict()
         res = Dictionary(res)
-        for i in result:
-            if i not in fields:
-                return -1
         for k,v in res.items():
             if v == 0.0:
                 res[k] = None
@@ -190,8 +190,10 @@ def Type6(FileName):
         res.pop(s)
         s = s.split('_')
         res['GST_Slab'] = s[1]
+        for i in res:
+            if i not in fields:
+                return -1
         result1.append(res)
-    print(res)
     return result1  
 
 def Type7(FileName):
@@ -231,3 +233,8 @@ def Type7(FileName):
             result['Deposit_Amt'] = 0
         result1.append(result)
     return result1
+
+def handle_uploaded_file(f):
+    with open('MMT.pdf', 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)

@@ -2,8 +2,11 @@ from django.shortcuts import render,HttpResponse
 from .forms import FileUploadForm,Type1Form,Type2Form,Type3Form,Type4Form,Type5Form,Type6Form,Type7Form
 from .methods import process
 from .models import Type1,Type2,Type3,Type4,Type5,Type6,Type7
+from .rules import manual_check
 import sys
 import os
+
+
 
 def TypeForm(res,Type):
     if Type == 1:
@@ -64,6 +67,9 @@ def fileupload(request):
     else:
         form = FileUploadForm()
         return render(request,'fileupload.html',{'form':form})
+
+def manualaudit(request):
+    return render(request,'manualaudit.html',{'data':manual_check()})
     
 
 
