@@ -79,7 +79,7 @@ class MMT_PDF_Parser:
         return obj.group(1), obj.group(2), obj.group(3)
     
     def guest_name(self):
-        return self.__extract_data__("Primary Guest : (.*?)E-mail")
+        return self.__extract_data__("Guest : (.*?)E-mail")
 
     def email_id(self):
         return self.__extract_data__("%sE-mail : (.*?)Contact" % self.guest_name())
@@ -91,6 +91,7 @@ class MMT_PDF_Parser:
 
     def __extract_data__(self,pattern):
         obj = re.search(pattern,self.pdf_data)
+        print(pattern,obj)
         return obj.group(1)
     
     def __page_data__(self,page_number):
