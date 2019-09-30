@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse
-from .forms import FileUploadForm,Type1Form,Type2Form,Type3Form,Type4Form,Type5Form,Type6Form,Type7Form
+from .forms import LoginForm,FileUploadForm,Type1Form,Type2Form,Type3Form,Type4Form,Type5Form,Type6Form,Type7Form
 from .methods import process
 from .models import Type1,Type2,Type3,Type4,Type5,Type6,Type7
 from .rules import manual_check
@@ -44,8 +44,23 @@ def data_from_db():
     data[heading[6]] = res
     return data 
 
+def login(request):
+    if request.method =='POST':
+        form = LoginForm(request.POST)
+        name = request.POST['Name']
+        password = request.POST['Password']
+        print(name,password)
+        if name == 'Admin' and password == 'root@123':
+            return render(request,'home.html',{'data':data_from_db(),'flag':'True'})      
+        else:
+            form = LoginForm()
+            return render(request,'login.html',{'form':form})
+    else:
+        form = LoginForm()
+        return render(request,'login.html',{'form':form})
+
 def home(request):
-    return render(request,'home.html',{'data':data_from_db()})
+    return render(request,'home.html',{'data':data_from_db(),'flag':'True'})
 
 def fileupload(request):
     if request.method =='POST':
@@ -53,9 +68,12 @@ def fileupload(request):
         if form.is_valid():
             FileName = request.FILES['FileName']
             Type = int(request.POST['Type'])
-            res = process(FileName,Type)
+            try:
+                res = process(FileName,Type)
+            except:
+                return render(request,'home.html',{'form':FileUploadForm(),'flag':'null','error':'True'})
             if res == -1:
-                return render(request,'failure.html')
+                return render(request,'home.html',{'form':FileUploadForm(),'flag':'null','error':'True'})
             for d in res: 
                 try:
                     form1 = TypeForm(d,Type)  
@@ -63,13 +81,13 @@ def fileupload(request):
                         form1.save()
                 except Exception as e:
                     print(e)
-            return render(request,'home.html',{'data':data_from_db()})        
+            return render(request,'home.html',{'data':data_from_db(),'flag':'True'})        
     else:
         form = FileUploadForm()
-        return render(request,'fileupload.html',{'form':form})
+        return render(request,'home.html',{'form':form,'flag':'null'})
 
 def manualaudit(request):
-    return render(request,'manualaudit.html',{'data':manual_check()})
+    return render(request,'home.html',{'data':manual_check(),'flag':'False'})
     
 
 

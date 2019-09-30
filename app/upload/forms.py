@@ -3,6 +3,10 @@ from .models import Type1,Type2,Type3,Type4,Type5,Type6,Type7
 
 FILE_TYPES = ((1,'Make My Trip Voucher PDF'),(2,'Make My Trip Transaction CSV'),(3,'Booking.com CSV'),(4,'RazorPay CSV'),(5,'mSwipe XLS'),(6,'Atom CSV'),(7,'Bank XLS'))
 
+class LoginForm(forms.Form):
+    Name = forms.CharField()
+    Password = forms.CharField(widget=forms.PasswordInput)
+
 class FileUploadForm(forms.Form):
     FileName = forms.FileField()
     Type = forms.ChoiceField(widget=forms.RadioSelect(),choices=FILE_TYPES)

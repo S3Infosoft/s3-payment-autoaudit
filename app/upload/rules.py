@@ -45,9 +45,7 @@ def manual_check():
         list1 = list()
         for i in res:
             if not rules.test_rule(str(j),i):
-                print('OKAY!')
                 list1.append(i)
-        print()
         d[heading[int(j-1)]] = list1
     return d
     
