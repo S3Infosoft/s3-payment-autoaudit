@@ -12,7 +12,10 @@ Installation :
 Usage :
         1)Clone the above repository.
         2)Run command "python3 manage.py runserver".
-        3)Open the url obtained.Home Page Appears.
+        3)Open the url obtained.Login Page Appears.
+        4)Credentials - User - Admin(Password - root@123)
+        5)On Successful Login Redirected to Dashboard
+        
         
         FILE UPLOAD
         1)In the Home Page,Click on File Upload Option.
