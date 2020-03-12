@@ -2,11 +2,11 @@ from django.db import models
 from django.forms import ModelForm
  
 class Type1(models.Model):
-    Booking_ID = models.CharField(max_length = 30,unique=True)
-    No_of_nights = models.IntegerField(null=True,blank=True)
-    Check_In = models.CharField(max_length = 30,null=True,blank=True)
-    Check_Out = models.CharField(max_length = 30,null=True,blank=True)
-    Room = models.IntegerField(null=True,blank=True)
+    Booking_ID = models.CharField(max_length=30, unique=True)
+    No_of_nights = models.IntegerField(null=True, blank=True)
+    Check_In = models.DateTimeField(max_length=30, null=True,blank=True)
+    Check_Out = models.DateTimeField(max_length=30,null=True,blank=True)
+    Room = models.IntegerField(null=True, blank=True)
     Night = models.IntegerField(null=True,blank=True)
     Hotel_Sell_Price = models.CharField(max_length = 30,null=True,blank=True)
     Extra_Adult_Child_Charge = models.IntegerField(null=True,blank=True)
