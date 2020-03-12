@@ -35,3 +35,8 @@ Usage :
 
 ``` docker-compose up```
 
+- API access:
+
+  | **Endpoint**                  | **HTTP Method** | **Response**                                  |
+  |-------------------------------|-----------------|-----------------------------------------------|
+  | /api/v1/audit/\<company>/\<start-date>/\<end-date>/ | GET | List of data between start-date(DD-MM-YYY) to end-date(DD-MM-YY).
