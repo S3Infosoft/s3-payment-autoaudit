@@ -195,3 +195,16 @@ class Type7(models.Model):
     
     class Meta:
         constraints = [ models.UniqueConstraint(fields=['Transaction_Date','Transaction_Details','Withdrawl_Amt','Deposit_Amt'], name='type7_unique'),]
+
+
+class Type8(models.Model):
+    """These are the details of the ICICI bank"""
+    transaction_id = models.CharField(max_length=25, primary_key=True)
+    transaction_value_date = models.DateField(null=True)
+    transaction_posted_date = models.DateField(null=True)
+    mode_of_payment = models.CharField(max_length=100)
+    credit = models.CharField(max_length=7)
+    transaction_amount = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
+
+    def __str__(self):
+        return self.transaction_id
