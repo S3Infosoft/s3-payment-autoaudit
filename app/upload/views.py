@@ -1,12 +1,12 @@
 from django.db.models.functions import datetime
 
-from django.shortcuts import render,HttpResponse
-from .forms import LoginForm,FileUploadForm,Type1Form,Type2Form,Type3Form,Type4Form,Type5Form,Type6Form,Type7Form
+from django.shortcuts import render
+from .forms import LoginForm, FileUploadForm, Type1Form, Type2Form, Type3Form, Type4Form, Type5Form, Type6Form, \
+    Type7Form, Type8Form
 from .methods import process
-from .models import Type1,Type2,Type3,Type4,Type5,Type6,Type7
+from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7
 from .rules import manual_check
-import sys
-import os
+from .excelparser import xlparser
 
 DATE_MONTH = {
     "Jan": 1,
@@ -22,6 +22,7 @@ DATE_MONTH = {
     "Nov": 11,
     "Dec": 12,
 }
+
 
 def TypeForm(res,Type):
     if Type == 1:
@@ -59,6 +60,7 @@ def data_from_db():
     data[heading[6]] = res
     return data 
 
+
 def login(request):
     if request.method =='POST':
         form = LoginForm(request.POST)
@@ -73,6 +75,7 @@ def login(request):
     else:
         form = LoginForm()
         return render(request,'login.html',{'form':form})
+
 
 def home(request):
     return render(request,'home.html',{'data':data_from_db(),'flag':'True'})
@@ -92,37 +95,46 @@ def convert_to_datetime(datetime_:  str):
 
 
 def fileupload(request):
-    if request.method =='POST':
-        form = FileUploadForm(request.POST,request.FILES)
+    if request.method == 'POST':
+        form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            FileName = request.FILES['FileName']
-            Type = int(request.POST['Type'])
-            try:
-                res = process(FileName,Type)
-                print("Outside process")
-            except:
-                print("Entered except")
-                return render(request,'home.html',{'form':FileUploadForm(),'flag':'null','error':'True'})
-            if res == -1:
-                print("Res is -1")
-                return render(request,'home.html',{'form':FileUploadForm(),'flag':'null','error':'True'})
-            for d in res:
-                d["Check_In"] = convert_to_datetime(d.get("Check_In", "NOT FOUND"))
-                d["Check_Out"] = convert_to_datetime(d.get("Check_Out", "NOT FOUND"))
+            file = request.FILES['filename']
+            type_ = int(request.POST['type'])
+            if type_ == 1:
+                try:
+                    res = process(file, type_)
+                except:
+                    return render(request, 'home.html', {'form':FileUploadForm(), 'flag':'null', 'error':'True'})
+                if res == -1:
+                    return render(request,'home.html',{'form':FileUploadForm(),'flag':'null','error':'True'})
+                for d in res:
+                    d["Check_In"] = convert_to_datetime(d.get("Check_In", "NOT FOUND"))
+                    d["Check_Out"] = convert_to_datetime(d.get("Check_Out", "NOT FOUND"))
 
-                form1 = TypeForm(d,Type)
-                if form1.is_valid():
-                    form1.save()
-                else:
-                    print(form1.errors)
-                    return render(request,'home.html',{'form':form,'flag':'null'})
-            return render(request,'home.html',{'data':data_from_db(),'flag':'True'})
+                    form1 = TypeForm(d, type_)
+                    if form1.is_valid():
+                        form1.save()
+                    else:
+                        print(form1.errors)
+                        return render(request,'home.html',{'form':form,'flag':'null'})
+            if type_ == 8:
+                print(file)
+                dataset = xlparser(file.read())
+                for data in dataset:
+                    print(data)
+                    form8 = Type8Form(data)
+                    if form8.is_valid():
+                        form8.save()
+                    else:
+                        print(form8.errors)
+
+            return render(request, 'home.html')
+        else:
+            print(form.errors)
     else:
         form = FileUploadForm()
         return render(request,'home.html',{'form':form,'flag':'null'})
 
+
 def manualaudit(request):
     return render(request,'home.html',{'data':manual_check(),'flag':'False'})
-    
-
-
