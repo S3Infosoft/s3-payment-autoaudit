@@ -24,6 +24,10 @@ DATE_MONTH = {
 }
 
 
+def icici_view(request):
+    return render(request, "icici.html")
+
+
 def TypeForm(res,Type):
     if Type == 1:
         return Type1Form(res)

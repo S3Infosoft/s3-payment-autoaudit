@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extracss %}
+  <link rel="stylesheet" href="{% static 'css/datatables/dataTables.bootstrap4.min.css' %}">
+{% endblock extracss %}
+
+{% block content %}
+   <div class="card shadow mb-4">
+    <div class="card-header py-2">
+      <h6 class="mt-2 text-lg font-weight-bold text-primary float-left">ICICI Transaction Details</h6>
+
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Transaction Id</th>
+              <th>Transaction Value Date</th>
+              <th>Transaction Posted Date</th>
+              <th>Mode of Payment</th>
+              <th>Credit</th>
+              <th>Transaction Amount</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Transaction Id</th>
+              <th>Transaction Value Date</th>
+              <th>Transaction Posted Date</th>
+              <th>Mode of Payment</th>
+              <th>Credit</th>
+              <th>Transaction Amount</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block extrajs %}
+  <script src="{% static 'js/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'js/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script>
+    const col = [
+            {"data": "transaction_id"},
+            {"data": "transaction_value_date"},
+            {"data": "transaction_posted_date"},
+            {"data": "mode_of_payment"},
+            {"data": "credit"},
+            {"data": "transaction_amount"},
+
+        ];
+
+    function buildTable(data, tableID, column) {
+        table = $(tableID).dataTable({
+            "aaData": data,
+            "aaSorting": [],    // disable the initial sorting
+            "columns": column,
+        });
+
+        return table
+
+    }
+     $(document).ready(function() { //when page gets loaded , execute the following function
+        $.ajax({
+          url: `http://localhost:8000/api/v1/audit/icici/`,
+          method: "GET",
+          success: function(data) {
+            console.log(data);
+            buildTable(data, "#dataTable", col, )
+          },
+          error: function(err) {
+            console.log(err);
+          }
+        })
+      });
+  </script>
+
+{% endblock extrajs %}
