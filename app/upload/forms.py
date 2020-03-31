@@ -1,5 +1,5 @@
 from django import forms
-from .models import Type1,Type2,Type3,Type4,Type5,Type6,Type7
+from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7, Type8
 
 FILE_TYPES = ((1, 'Make My Trip Voucher PDF'),
               (2, 'Make My Trip Transaction CSV'),
@@ -10,18 +10,22 @@ FILE_TYPES = ((1, 'Make My Trip Voucher PDF'),
               (7, 'Bank XLS'),
               (8, 'Bank ICICI'))
 
+
 class LoginForm(forms.Form):
     Name = forms.CharField()
     Password = forms.CharField(widget=forms.PasswordInput)
 
+
 class FileUploadForm(forms.Form):
-    FileName = forms.FileField()
-    Type = forms.ChoiceField(widget=forms.RadioSelect(),choices=FILE_TYPES)
+    filename = forms.FileField()
+    type = forms.ChoiceField(widget=forms.RadioSelect(),choices=FILE_TYPES)
+
 
 class Type1Form(forms.ModelForm):
     class Meta:
         model = Type1
-        fields = ('Booking_ID','No_of_nights','Check_In','Check_Out','Room','Night','Hotel_Sell_Price','Extra_Adult_Child_Charge','Hotel_Gross_Price','MMT_Commission','GST_18_Including_IGST_or_SGST_CGST','MMT_to_Pay_Hotel_A_B','GST_on_hotel_accommodation_charges_by_Ecommerce_Operator','Primary_Guest','E_mail','Contact_No','Room_Category','Meal_Plan')
+        fields = ('Booking_ID', 'No_of_nights', 'Check_In', 'Check_Out','Room','Night','Hotel_Sell_Price','Extra_Adult_Child_Charge','Hotel_Gross_Price','MMT_Commission','GST_18_Including_IGST_or_SGST_CGST','MMT_to_Pay_Hotel_A_B','GST_on_hotel_accommodation_charges_by_Ecommerce_Operator','Primary_Guest','E_mail','Contact_No','Room_Category','Meal_Plan')
+
 
 class Type2Form(forms.ModelForm):
     class Meta:
@@ -34,22 +38,32 @@ class Type3Form(forms.ModelForm):
         model = Type3
         fields = ('Reservation_number','Booked_on','Arrival','Departure','Booker_name','Guest_name','Rooms','Persons','Room_nights','Commission','Original_amount','Final_amount','Commission_amount','Status','Guest_request','Currency','Hotel_id')
 
+
 class Type4Form(forms.ModelForm):
     class Meta:
         model = Type4
         fields = ('entity_id','TYPE','debit','credit','amount','currency','fee','tax','on_hold','settled','created_at','settled_at','settlement_id','description','notes','payment_id','settlement_utr','order_id','order_receipt','method','issuer_name','card_network','card_issuer','card_type','dispute_id')
 
+
 class Type5Form(forms.ModelForm):
     class Meta:
         model = Type5
         fields = ('CustomerCode','MerchantName','TID','IFSC','RR_NO','Stan_No','Interchange','CardNo','CardType','TxnDate','PaymentDate','PaymentRemarks1','K30_PRORATA_AMT','K30_Benefit_Received','TxnAmt','MdrMswipePer','MdrValue','GST','TDS_Amount','Deduction','Conveyance_fees_Rate','Conveyance_fees_Amount','Conveyance_fees_GST','NetAmt','Rent','Adjustment','FinalPayment','LoanDeductionRate','LoanDeductionAmount','AdditionalRecovery','FinalPaymentToMeAfterLoanDeduction','FinalPaymentToLoanProvider','REMARKS','Mswipe_Ref_No','NEFT_Ref_No','ARN','Lender_UTR_No','Lender_Payment_Date','Approval_No','Invoice_no','RowId','Cust_GroupCustCode','StoreCode','Cust_Device_Id','PaymentRemarks2')
-    
+
+
 class Type6Form(forms.ModelForm):
     class Meta:
         model = Type6
         fields = ('Sr_no','Merchant_Name','DBA_Name','Merchant_Id','TID','Atom_Txn_ID','RRN','Auth_Code','Currency','Txn_Date','Txn_Type','Txn_Status','Recon_Status','Setteled_Date','Batch_number','Payment_Date','Amount','MSF','GST','GST_Slab','Cash_POS_Incent','net_Amount','Local_Intl','mcc','City','Card_Number')
 
+
 class Type7Form(forms.ModelForm):
     class Meta:
         model = Type7
-        fields = ('Transaction_Date','Transaction_Details','Cheque_ID','Value_Date','Withdrawl_Amt','Deposit_Amt','Balance_INR')        
+        fields = ('Transaction_Date','Transaction_Details','Cheque_ID','Value_Date','Withdrawl_Amt','Deposit_Amt','Balance_INR')
+
+
+class Type8Form(forms.ModelForm):
+    class Meta:
+        model = Type8
+        fields = "__all__"

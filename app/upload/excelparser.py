@@ -1,21 +1,44 @@
 import re
-import pyexcel_xls
+from datetime import date
+import pyexcel
+
+
+def convert_to_date(datetime: str):
+    if type(datetime) == str:
+        date_, *_ = datetime.split()
+        dd, mm, yyyy = [int(val) for val in date_.split("/")]
+        return date(year=yyyy, month=mm, day=dd)
+    return datetime
+
+
+def rename_header(headers: list) -> list:
+    for i in range(len(headers)):
+        headers[i] = headers[i].replace("Transaction ID", "transaction_id") \
+                               .replace("Value Date", "transaction_value_date") \
+                               .replace("Txn Posted Date", "transaction_posted_date") \
+                               .replace("Description", "mode_of_payment") \
+                               .replace("Cr/Dr", "credit") \
+                               .replace("Transaction Amount(INR)", "transaction_amount")
+    return headers
 
 
 def xlparser(xlfile):
-    xl = pyexcel_xls.read_data(xlfile)
-    sheets = tuple(xl.keys())
-    rows = xl.get(sheets[0])
-    headers = rows[6][1:]
+    xl = pyexcel.get_book(file_type="xls", file_content=xlfile)
+    sheets = tuple(xl.dict.keys())
+    rows = xl.dict.get(sheets[0])
+    headers = rename_header(rows[6][1:])
     for row in rows[7:]:
         data = dict(zip(headers, row[1:]))
-        data["Description"] = (
+        data["mode_of_payment"] = (
             re.findall(r"RAZORPAY|MSWIPE|CCARD|GOOGLE|AXISROOMS|ICICI|SELF|FINO|MAKEMYTRIP|IBIBO|Paytm",
-                       data.get("Description"))[0]
+                       data.get("mode_of_payment"))[0]
         )
+        data['transaction_value_date'] = convert_to_date(data['transaction_value_date'])
+        data['transaction_posted_date'] = convert_to_date(data['transaction_posted_date'])
         data.pop("ChequeNo.")
-        print(data)
+        yield data
 
 
 if __name__ == "__main__":
-    xlparser("./ICICI_648805052604_sample.xls")
+    with open("./ICICI_648805052604_sample.xls", "rb") as f:
+        xlparser(f.read())
