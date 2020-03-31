@@ -116,10 +116,10 @@ def fileupload(request):
                         form1.save()
                     else:
                         print(form1.errors)
-                        return render(request,'home.html',{'form':form,'flag':'null'})
+                        return render(request,'home.html', {'form': form, 'flag': 'null'})
             if type_ == 8:
                 print(file)
-                dataset = xlparser(file.read())
+                dataset = xlparser(file.read())  # calling xlparser method and storing in the dataset
                 for data in dataset:
                     print(data)
                     form8 = Type8Form(data)

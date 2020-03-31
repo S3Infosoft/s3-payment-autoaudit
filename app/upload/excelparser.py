@@ -4,6 +4,7 @@ import pyexcel
 
 
 def convert_to_date(datetime: str):
+    """Convert the date-time string(dd/mm/yyyy) to date time object"""
     if type(datetime) == str:
         date_, *_ = datetime.split()
         dd, mm, yyyy = [int(val) for val in date_.split("/")]
@@ -12,6 +13,7 @@ def convert_to_date(datetime: str):
 
 
 def rename_header(headers: list) -> list:
+    """This function is replacing all the column names of the given excel sheet with the field names of the Type8"""
     for i in range(len(headers)):
         headers[i] = headers[i].replace("Transaction ID", "transaction_id") \
                                .replace("Value Date", "transaction_value_date") \
@@ -23,10 +25,11 @@ def rename_header(headers: list) -> list:
 
 
 def xlparser(xlfile):
+    """Parse the excel data coming from forms"""
     xl = pyexcel.get_book(file_type="xls", file_content=xlfile)
-    sheets = tuple(xl.dict.keys())
+    sheets = tuple(xl.dict.keys())      # get all the sheet names from the excel file
     rows = xl.dict.get(sheets[0])
-    headers = rename_header(rows[6][1:])
+    headers = rename_header(rows[6][1:])        # get all the data from the first sheet
     for row in rows[7:]:
         data = dict(zip(headers, row[1:]))
         data["mode_of_payment"] = (
