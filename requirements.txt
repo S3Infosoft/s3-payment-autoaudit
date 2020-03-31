@@ -21,8 +21,6 @@ ptyprocess==0.6.0
 pyexcel==0.5.15
 pyexcel-io==0.5.20
 pyexcel-webio==0.1.4
-pyexcel-xls==0.5.8
-pyexcel-xlsx==0.5.8
 Pygments==2.6.1
 PyPDF2==1.26.0
 python-dateutil==2.8.1

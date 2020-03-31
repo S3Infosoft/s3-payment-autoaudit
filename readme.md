@@ -40,3 +40,4 @@ Usage :
   | **Endpoint**                  | **HTTP Method** | **Response**                                  |
   |-------------------------------|-----------------|-----------------------------------------------|
   | /api/v1/audit/\<company>/\<start-date>/\<end-date>/ | GET | List of data between start-date(DD-MM-YYY) to end-date(DD-MM-YY).
+  | /api/v1/audit/icici/                                | GET | List of all the data of the ICICI bank.  
