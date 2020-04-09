@@ -1,6 +1,5 @@
 from django.db.models.functions import datetime
-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import LoginForm, FileUploadForm, Type1Form, Type2Form, Type3Form, Type4Form, Type5Form, Type6Form, \
     Type7Form, Type8Form
 from .methods import process
@@ -131,6 +130,7 @@ def fileupload(request):
                         form8.save()
                     else:
                         print(form8.errors)
+                return redirect('icici')
 
             return render(request, 'home.html')
         else:
