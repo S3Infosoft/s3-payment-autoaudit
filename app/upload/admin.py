@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7, Type8
+from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7, Type8, Type9
 
 
 @admin.register(Type1)
@@ -11,6 +11,11 @@ class Type1(admin.ModelAdmin):
 @admin.register(Type8)
 class Type8Admin(admin.ModelAdmin):
     list_display = [field.name for field in Type8._meta.get_fields()]
+
+
+@admin.register(Type9)
+class Type9Admin(admin.ModelAdmin):
+    list_display = [field.name for field in Type9._meta.get_fields()]
 
 
 admin.site.register(Type2)
