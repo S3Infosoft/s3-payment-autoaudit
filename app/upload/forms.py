@@ -1,5 +1,5 @@
 from django import forms
-from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7, Type8
+from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7, Type8, Type9
 
 FILE_TYPES = ((1, 'Make My Trip Voucher PDF'),
               (2, 'Make My Trip Transaction CSV'),
@@ -8,7 +8,9 @@ FILE_TYPES = ((1, 'Make My Trip Voucher PDF'),
               (5, 'mSwipe XLS'),
               (6, 'Atom CSV'),
               (7, 'Bank XLS'),
-              (8, 'Bank ICICI'))
+              (8, 'Bank ICICI'),
+              (9, 'mSwipe2 CSV'))
+
 
 
 class LoginForm(forms.Form):
@@ -67,3 +69,11 @@ class Type8Form(forms.ModelForm):
     class Meta:
         model = Type8
         fields = "__all__"
+
+
+class Type9Form(forms.ModelForm):
+    class Meta:
+        model = Type9
+        fields = "__all__"
+
+

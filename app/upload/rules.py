@@ -22,13 +22,13 @@ def data_from_db():
 
     
 def addRules():
-    rules.add_rule('1',MMT1_Commission_Check)
-    rules.add_rule('2',MMT2_Commission_Check)
-    rules.add_rule('3',Booking_Commission_Check)
-    rules.add_rule('4',Razorpay_Commission_Check)
-    rules.add_rule('5',Mswipe_Commission_Check)
-    rules.add_rule('6',Atom_Commission_Check)
-    rules.add_rule('7',Bank_Commission_Check)
+    rules.add_rule('1', MMT1_Commission_Check)
+    rules.add_rule('2', MMT2_Commission_Check)
+    rules.add_rule('3', Booking_Commission_Check)
+    rules.add_rule('4', Razorpay_Commission_Check)
+    rules.add_rule('5', Mswipe_Commission_Check)
+    rules.add_rule('6', Atom_Commission_Check)
+    rules.add_rule('7', Bank_Commission_Check)
 
 
 def manual_check():
@@ -39,7 +39,7 @@ def manual_check():
     flag = False
     data = data_from_db()
     d = dict()
-    heading = ['Make My Trip Voucher PDF','Make My Trip Transaction CSV','Booking.com CSV','RazorPay CSV','mSwipe XLS','Atom CSV','Bank XLS']
+    heading = ['Make My Trip Voucher PDF', 'Make My Trip Transaction CSV', 'Booking.com CSV', 'RazorPay CSV', 'mSwipe XLS', 'Atom CSV', 'Bank XLS']
     for j in data:
         res = data[j]
         list1 = list()

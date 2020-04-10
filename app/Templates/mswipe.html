@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  mSwipe Data
+{% endblock title %}
+
+{% block extracss %}
+  <link rel="stylesheet" href="{% static 'css/datatables/dataTables.bootstrap4.min.css' %}">
+{% endblock extracss %}
+
+{% block content %}
+   <div class="card shadow mb-4">
+    <div class="card-header py-2">
+      <h6 class="mt-2 text-lg font-weight-bold text-primary float-left">mSwipe2 Transaction Details</h6>
+
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Date</th>
+              <th>Mobile </th>
+              <th>Consumer</th>
+              <th>UserName</th>
+              <th>Type</th>
+              <th>Mode</th>
+              <th>Amount</th>
+              <th>Tip</th>
+              <th>Cash At POS</th>
+              <th>Txn Type</th>
+              <th>Auth Code</th>
+              <th>Card</th>
+              <th>Card Type</th>
+              <th>Brand Type</th>
+              <th>Card Txn Type</th>
+              <th>RRN</th>
+              <th>Invoice</th>
+              <th>Device Serial</th>
+              <th>Status</th>
+              <th>Settled On </th>
+              <th>MID</th>
+              <th>TID</th>
+              <th>Batch</th>
+              <th>Ref</th>
+              <th>Payer</th>
+              <th>TID Location</th>
+              <th>DX Mode</th>
+              <th>Acquiring Bank</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Id</th>
+              <th>Date</th>
+              <th>Mobile </th>
+              <th>Consumer</th>
+              <th>UserName</th>
+              <th>Type</th>
+              <th>Mode</th>
+              <th>Amount</th>
+              <th>Tip</th>
+              <th>Cash At POS</th>
+              <th>Txn Type</th>
+              <th>Auth Code</th>
+              <th>Card</th>
+              <th>Card Type</th>
+              <th>Brand Type</th>
+              <th>Card Txn Type</th>
+              <th>RRN</th>
+              <th>Invoice</th>
+              <th>Device Serial</th>
+              <th>Status</th>
+              <th>Settled On </th>
+              <th>MID</th>
+              <th>TID</th>
+              <th>Batch</th>
+              <th>Ref</th>
+              <th>Payer</th>
+              <th>TID Location</th>
+              <th>DX Mode</th>
+              <th>Acquiring Bank</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block extrajs %}
+  <script src="{% static 'js/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'js/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script>
+    const col = [
+            {"data": "id"},
+            {"data": "date"},
+            {"data": "mobile"},
+            {"data": "consumer"},
+            {"data": "username"},
+            {"data": "type"},
+            {"data": "mode"},
+            {"data": "amount"},
+            {"data": "tip"},
+            {"data": "cash_at_pos"},
+            {"data": "txn_type"},
+            {"data": "auth_code"},
+            {"data": "card"},
+            {"data": "card_type"},
+            {"data": "brand_type"},
+            {"data": "card_txn_type"},
+            {"data": "rrn"},
+            {"data": "invoice"},
+            {"data": "device_serial"},
+            {"data": "status"},
+            {"data": "settled_on"},
+            {"data": "mid"},
+            {"data": "tid"},
+            {"data": "batch"},
+            {"data": "ref"},
+            {"data": "payer"},
+            {"data": "tid_location"},
+            {"data": "dx_mode"},
+            {"data": "acquiring_bank"},
+
+        ];
+
+    function buildTable(data, tableID, column) {
+        table = $(tableID).dataTable({
+            "aaData": data,
+            "aaSorting": [],    // disable the initial sorting
+            "columns": column,
+        });
+
+        return table
+
+    }
+     $(document).ready(function() { //when page gets loaded , execute the following function
+        $.ajax({
+          url: `http://localhost:8000/api/v1/audit/mswipe/`,
+          method: "GET",
+          success: function(data) {
+            console.log(data);
+            buildTable(data, "#dataTable", col, )
+          },
+          error: function(err) {
+            console.log(err);
+          }
+        })
+      });
+  </script>
+
+{% endblock extrajs %}

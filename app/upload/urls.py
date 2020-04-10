@@ -7,4 +7,6 @@ urlpatterns = [
     path('fileupload/', views.fileupload, name='fileupload'),
     path('manualaudit/', views.manualaudit, name='manualaudit'),
     path('icici/', views.icici_view, name='icici'),
+    path('mswipe/', views.mswipe_view, name='mswipe'),
+
 ]
