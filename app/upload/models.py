@@ -208,3 +208,39 @@ class Type8(models.Model):
 
     def __str__(self):
         return self.transaction_id
+
+
+class Type9(models.Model):
+    """These are the details of mswipe2 i.e. CCard (mode of payment) by ICICI bANK"""
+    id = models.CharField(max_length=25, primary_key=True)
+    date = models.DateTimeField(null=True)
+    mobile = models.CharField(max_length=15)
+    consumer = models.CharField(max_length=200)
+    username = models.CharField(max_length=200)
+    type = models.CharField(max_length=30)
+    mode = models.CharField(max_length=30)
+    amount = models.CharField(max_length=100)
+    tip = models.CharField(max_length=100)
+    cash_at_pos = models.CharField(max_length=250)
+    txn_type = models.CharField(max_length=150)
+    auth_code = models.CharField(max_length=100)
+    card = models.CharField(max_length=100)
+    card_type = models.CharField(max_length=100)
+    brand_type = models.CharField(max_length=200)
+    card_txn_type = models.CharField(max_length=200)
+    rrn = models.CharField(max_length=80)
+    invoice = models.CharField(max_length=20)
+    device_serial = models.CharField(max_length=100)
+    status = models.CharField(max_length=200)
+    settled_on = models.DateTimeField(null=True)
+    mid = models.CharField(max_length=250)
+    tid = models.CharField(max_length=300)
+    batch = models.CharField(max_length=150)
+    ref = models.CharField(max_length=100)
+    payer = models.CharField(max_length=100)
+    tid_location = models.CharField(max_length=150)
+    dx_mode = models.CharField(max_length=200)
+    acquiring_bank = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.id
