@@ -7,4 +7,5 @@ urlpatterns = [
             r"(?P<day2>[0-9]{2})-(?P<month2>[0-9]{2})-(?P<year2>[0-9]{4})/$",
             views.Type1ListAPIView.as_view(), name="list_api"),
     path('icici/', views.Type8ListAPIView.as_view(), name="list_api"),
+    path('mswipe/', views.Type9ListAPIView.as_view(), name="list_api"),
 ]

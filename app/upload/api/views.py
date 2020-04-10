@@ -3,8 +3,8 @@ from operator import itemgetter
 from django.db.models.functions import datetime
 
 from rest_framework.generics import ListAPIView
-from .serializers import Type1Serializers, Type8Serializers
-from ..models import Type1, Type8
+from .serializers import Type1Serializers, Type8Serializers, Type9Serializers
+from ..models import Type1, Type8, Type9
 
 
 class Type1ListAPIView(ListAPIView):
@@ -32,3 +32,9 @@ class Type8ListAPIView(ListAPIView):
     """ListView to display the data"""
     serializer_class = Type8Serializers
     queryset = Type8.objects.all()
+
+
+class Type9ListAPIView(ListAPIView):
+    """ListView to display the data"""
+    serializer_class = Type9Serializers
+    queryset = Type9.objects.all()
