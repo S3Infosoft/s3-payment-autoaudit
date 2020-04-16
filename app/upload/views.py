@@ -143,7 +143,6 @@ def fileupload(request):
                         form9.save()
                     else:
                         print(form9.errors)
-                        break
                 return redirect('mswipe')
             return render(request, 'home.html')
         else:

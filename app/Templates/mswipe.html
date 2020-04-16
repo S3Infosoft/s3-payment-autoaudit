@@ -139,7 +139,7 @@
     }
      $(document).ready(function() { //when page gets loaded , execute the following function
         $.ajax({
-          url: `http://localhost:8000/api/v1/audit/mswipe/`,
+          url: url.origin + `{% url 'list_api' %}`,
           method: "GET",
           success: function(data) {
             console.log(data);
