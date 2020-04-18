@@ -14,8 +14,7 @@ SECRET_KEY = '#8dw+@yy4@eacu1+!)5=a*%t=)m&k6!@5ca4_wq00+fidmg+1&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["127.0.0.1",  "localhost", "paymentautoaudit"]
 
 # Application definition
 
