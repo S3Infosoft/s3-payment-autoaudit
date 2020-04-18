@@ -8,5 +8,6 @@ urlpatterns = [
     path('manualaudit/', views.manualaudit, name='manualaudit'),
     path('icici/', views.icici_view, name='icici'),
     path('mswipe/', views.mswipe_view, name='mswipe'),
+    path('masterdata/', views.send_master_data, name='send_master_data'),
 
 ]
