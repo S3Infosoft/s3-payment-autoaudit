@@ -1,5 +1,6 @@
 from django.db.models.functions import datetime
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from .forms import LoginForm, FileUploadForm, Type1Form, Type2Form, Type3Form, Type4Form, Type5Form, Type6Form, \
     Type7Form, Type8Form, Type9Form
 from .methods import process
@@ -7,6 +8,7 @@ from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7
 from .rules import manual_check
 from .excelparser import xlparser
 from .csvparser import csvparser
+from .master_data import provide_master_data
 
 DATE_MONTH = {
     "Jan": 1,
@@ -22,6 +24,10 @@ DATE_MONTH = {
     "Nov": 11,
     "Dec": 12,
 }
+
+
+def send_master_data(request, month, year):
+    return JsonResponse(provide_master_data(month, year))
 
 
 def icici_view(request):
@@ -143,7 +149,6 @@ def fileupload(request):
                         form9.save()
                     else:
                         print(form9.errors)
-                        break
                 return redirect('mswipe')
             return render(request, 'home.html')
         else:

@@ -1,12 +1,9 @@
-import csv
 from datetime import datetime
 import pandas as pd
-import sys
 
 
 def convert_to_date(transaction_date: str):
     """Convert the date-time string(dd/mm/yyyy hh:min_) to date time object"""
-    print(transaction_date)
     if type(transaction_date) == str:
         date_, time = transaction_date.split()
         dd, mm, yyyy = [int(val) for val in date_.split("/")]
