@@ -26,8 +26,8 @@ DATE_MONTH = {
 }
 
 
-def send_master_data(request):
-    return JsonResponse(provide_master_data())
+def send_master_data(request, month, year):
+    return JsonResponse(provide_master_data(month, year))
 
 
 def icici_view(request):

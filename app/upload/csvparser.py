@@ -1,7 +1,5 @@
-import csv
 from datetime import datetime
 import pandas as pd
-import sys
 
 
 def convert_to_date(transaction_date: str):
