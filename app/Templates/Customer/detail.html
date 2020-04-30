@@ -1,0 +1,103 @@
+{%  extends 'base.html' %}
+{% block title %}Customer Detail{% endblock title %}
+{%  block content %}
+  <div class="row">
+  <div class="col-3"></div>
+  <div class="col-6">
+    <div class="card text-white mx-auto w-75" style="width: 18rem; background-color: #192A56">
+      <div class="card-body">
+        <h4 class="card-title"><strong>{{ object.name }}</strong></h4>
+        <p class="card-text">{{ object.email }}</p>
+        <p class="card-text">{{ object.id_from_mvr }}</p>
+        <p class="card-text">{{ object.phone }}</p>
+        <p class="card-text">{{ object.notes }}</p>
+      </div>
+
+      <div class="card-footer text-white" style="background-color: #192A41">
+        <button type="button" data-toggle="modal" data-target="#updateModal" class="btn btn-primary btn-icon-split">
+          <span class="icon text-white">
+            <i class="fas fa-edit"></i>
+          </span>
+          <span class="text">Update</span>
+        </button>
+        <button data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-icon-split ml-2">
+          <span class="icon text-white-50">
+            <i class="far fa-trash-alt"></i>
+          </span>
+          <span class="text font-weight-bold">Delete</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Customer Update</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form METHOD="post" action="{% url 'customer_update' pk=object.pk %}">
+            <div class="modal-body">
+                <div class="card mx-auto">
+                  <div class="card-body">
+                      {% csrf_token %}
+                      {%  for field in update_form %}
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">{{ field.label }}</label>
+                          {{ field }}
+                        </div>
+                      {% endfor %}
+                  </div>
+                </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-icon-split" data-dismiss="modal">
+              <span class="icon text-white-50">
+                <i class="far fa-hand-point-left"></i>
+              </span>
+              <span class="text">Close</span>
+            </button>
+            <button type="submit" class="btn btn-success btn-icon-split">
+              <span class="icon text-white-50">
+                <i class="fas fa-check-double"></i>
+              </span>
+              <span class="text">Save Changes</span>
+            </button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete {{ object.name }} Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form METHOD="post" action="{% url 'customer_delete' pk=object.pk %}">
+          <div class="modal-body">
+              <div class="card mx-auto">
+                {% csrf_token %}
+               <h5 class="card-title">Are you sure you want to delete??</h5>
+              </div>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input class="btn btn-danger" type="submit" value="DELETE">
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="col-3"></div>
+  </div>
+{% endblock content %}

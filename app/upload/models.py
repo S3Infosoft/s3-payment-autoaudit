@@ -1,6 +1,8 @@
 from django.db import models
+from django.urls import reverse
 from django.forms import ModelForm
- 
+
+
 class Type1(models.Model):
     Booking_ID = models.CharField(max_length=30, unique=True)
     No_of_nights = models.IntegerField(null=True, blank=True)
@@ -244,3 +246,45 @@ class Type9(models.Model):
 
     def __str__(self):
         return self.id
+
+
+class Customer(models.Model):
+    name = models.CharField(max_length=30)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15)
+    id_from_mvr = models.CharField(max_length=40)
+    notes = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('customer_detail', kwargs={'pk': self.pk})
+
+
+class CustomerCheckIn(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    checkin_date = models.DateField(null=True)
+    checkout_date = models.DateField(null=True)
+    expected_amount = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    realised_amount = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    notes = models.CharField(max_length=100)
+
+    def __str__(self):
+        return str(self.customer)
+
+    def get_absolute_url(self):
+        return reverse('checkin_detail', kwargs={'pk': self.pk})
+
+
+class CashEntry(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    cash_amount = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    date = models.DateField(null=True)
+    details = models.CharField(max_length=30)
+
+    def __str__(self):
+        return str(self.customer)
+
+    def get_absolute_url(self):
+        return reverse('cashentry_detail', kwargs={'pk': self.pk})

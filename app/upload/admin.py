@@ -1,5 +1,15 @@
 from django.contrib import admin
-from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7, Type8, Type9
+from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7, Type8, Type9, Customer, CustomerCheckIn
+
+
+@admin.register(CustomerCheckIn)
+class CustomerCheckInAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in CustomerCheckIn._meta.get_fields()]
+
+
+@admin.register(Customer)
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Customer._meta.get_fields()[2:]]
 
 
 @admin.register(Type1)
