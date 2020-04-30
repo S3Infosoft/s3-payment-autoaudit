@@ -1,5 +1,5 @@
 from django import forms
-from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7, Type8, Type9
+from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7, Type8, Type9, Customer, CustomerCheckIn, CashEntry
 
 FILE_TYPES = ((1, 'Make My Trip Voucher PDF'),
               (2, 'Make My Trip Transaction CSV'),
@@ -76,4 +76,93 @@ class Type9Form(forms.ModelForm):
         model = Type9
         fields = "__all__"
 
+
+class CustomerForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super(CustomerForm, self).__init__(*args, **kwargs)
+        self.fields["name"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Enter Customer Name"
+        }
+        self.fields["email"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Enter Email"
+        }
+        self.fields["phone"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Enter Phone No."
+        }
+        self.fields["id_from_mvr"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Enter ID From MVR"
+        }
+        self.fields["notes"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Enter Notes"
+        }
+
+
+class CustomerCheckInForm(forms.ModelForm):
+    class Meta:
+        model = CustomerCheckIn
+        fields = "__all__"
+        widgets = {
+            'checkin_date': forms.DateInput(format=('%m/%d/%Y'),
+                                             attrs={'class': 'form-control', 'placeholder': 'Select a date',
+                                                    'type': 'date'}),
+            'checkout_date': forms.DateInput(format=('%m/%d/%Y'),
+                                            attrs={'class': 'form-control', 'placeholder': 'Select a date',
+                                                   'type': 'date'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(CustomerCheckInForm, self).__init__(*args, **kwargs)
+        self.fields["customer"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Enter Customer Name"
+        }
+        self.fields["expected_amount"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Enter Expected Amount",
+            "step": ".01"
+        }
+        self.fields["realised_amount"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Enter Realised Amount"
+        }
+        self.fields["notes"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Enter Notes"
+        }
+
+
+class CashEntryForm(forms.ModelForm):
+    class Meta:
+        model = CashEntry
+        fields = "__all__"
+        widgets = {
+            'date': forms.DateInput(format=('%d/%m/%Y'),
+                                            attrs={'class': 'form-control', 'placeholder': 'Select a date',
+                                                   'type': 'date'}),
+            }
+
+    def __init__(self, *args, **kwargs):
+        super(CashEntryForm, self).__init__(*args, **kwargs)
+        self.fields["customer"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Enter Customer Name"
+        }
+        self.fields["cash_amount"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Enter Cash Amount",
+            "step": ".01"
+        }
+        self.fields["details"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Enter Details"
+        }
 

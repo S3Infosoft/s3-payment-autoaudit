@@ -1,0 +1,24 @@
+{%  extends 'base.html' %}
+{% block content %}
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <div class="card mx-auto">
+        <div class="card-body">
+          <h5 class="card-title">Enter Customer Details</h5>
+          <form METHOD="post">
+            {% csrf_token %}
+            {%  for field in form %}
+              <div class="form-group">
+                <label for="exampleFormControlInput1">{{ field.label }}</label>
+                {{ field }}
+              </div>
+            {% endfor %}
+            <button class="btn btn-success" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+{% endblock  %}

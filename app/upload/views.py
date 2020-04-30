@@ -1,14 +1,17 @@
 from django.db.models.functions import datetime
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
+from django.urls import reverse_lazy
 from django.http import JsonResponse
+from django.views.generic import CreateView, ListView, DetailView, DeleteView
 from .forms import LoginForm, FileUploadForm, Type1Form, Type2Form, Type3Form, Type4Form, Type5Form, Type6Form, \
-    Type7Form, Type8Form, Type9Form
+    Type7Form, Type8Form, Type9Form, CustomerForm, CustomerCheckInForm, CashEntryForm
 from .methods import process
-from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7
+from .models import Type1, Type2, Type3, Type4, Type5, Type6, Type7, Customer, CustomerCheckIn, CashEntry
 from .rules import manual_check
 from .excelparser import xlparser
 from .csvparser import csvparser
 from .master_data import provide_master_data
+
 
 DATE_MONTH = {
     "Jan": 1,
@@ -160,3 +163,130 @@ def fileupload(request):
 
 def manualaudit(request):
     return render(request, 'home.html', {'data': manual_check(), 'flag': 'False'})
+
+
+class CustomerCreateView(CreateView):
+    model = Customer
+    form_class = CustomerForm
+    template_name = 'Customer/create.html'
+
+    def get_success_url(self):
+        return reverse("customer_detail", kwargs={"pk": self.object.pk})
+
+
+class CustomerListView(ListView):
+    model = Customer
+    form_class = CustomerForm
+    template_name = 'Customer/list.html'
+    ordering = ['-id']
+
+
+class CustomerDetailView(DetailView):
+    model = Customer
+    template_name = "Customer/detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(CustomerDetailView, self).get_context_data(**kwargs)
+        form = CustomerForm(instance=self.object)
+        ctx["update_form"] = form
+
+        return ctx
+
+
+def update_customer(request, pk):
+    if request.method == "POST":
+        customer = Customer.objects.get(pk=pk)
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect(customer.get_absolute_url())
+
+
+class CustomerDeleteView(DeleteView):
+    model = Customer
+    success_url = reverse_lazy("customer_list")
+
+
+class CustomerCheckInCreateView(CreateView):
+    model = CustomerCheckIn
+    form_class = CustomerCheckInForm
+    template_name = 'CustomerCheckIn/create.html'
+
+    def get_success_url(self):
+        return reverse("checkin_detail", kwargs={"pk": self.object.pk})
+
+
+class CustomerCheckInListView(ListView):
+    model = CustomerCheckIn
+    form_class = CustomerCheckInForm
+    template_name = 'CustomerCheckIn/list.html'
+    ordering = ['-customer']
+
+
+class CustomerCheckInDetailView(DetailView):
+    model = CustomerCheckIn
+    template_name = 'CustomerCheckIn/detail.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(CustomerCheckInDetailView, self).get_context_data(**kwargs)
+        form = CustomerCheckInForm(instance=self.object)
+        ctx["update_form"] = form
+
+        return ctx
+
+
+def update_customercheckin(request, pk):
+    if request.method == "POST":
+        checkin = CustomerCheckIn.objects.get(pk=pk)
+        form = CustomerCheckInForm(request.POST, instance=checkin)
+        if form.is_valid():
+            form.save()
+            return redirect(checkin.get_absolute_url())
+
+
+class CustomerCheckInDeleteView(DeleteView):
+    model = CustomerCheckIn
+    success_url = reverse_lazy("checkin_list")
+
+
+class CashEntryCreateView(CreateView):
+    model = CashEntry
+    form_class = CashEntryForm
+    template_name = 'CashEntry/create.html'
+
+    def get_success_url(self):
+        return reverse("cashentry_detail", kwargs={"pk": self.object.pk})
+
+
+class CashEntryListView(ListView):
+    model = CashEntry
+    form_class = CashEntryForm
+    template_name = 'CashEntry/list.html'
+    ordering = ['-customer']
+
+
+class CashEntryDetailView(DetailView):
+    model = CashEntry
+    template_name = 'CashEntry/detail.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(CashEntryDetailView, self).get_context_data(**kwargs)
+        form = CashEntryForm(instance=self.object)
+        ctx["update_form"] = form
+
+        return ctx
+
+
+def update_cashentry(request, pk):
+    if request.method == "POST":
+        cashentry = CashEntry.objects.get(pk=pk)
+        form = CashEntryForm(request.POST, instance=cashentry)
+        if form.is_valid():
+            form.save()
+            return redirect(cashentry.get_absolute_url())
+
+
+class CashEntryDeleteView(DeleteView):
+    model = CashEntry
+    success_url = reverse_lazy("cashentry_list")
+
