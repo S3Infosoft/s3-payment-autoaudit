@@ -49,6 +49,7 @@
               <th>TID Location</th>
               <th>DX Mode</th>
               <th>Acquiring Bank</th>
+              <th>Link Customer</th>
             </tr>
           </thead>
           <tfoot>
@@ -82,6 +83,7 @@
               <th>TID Location</th>
               <th>DX Mode</th>
               <th>Acquiring Bank</th>
+              <th>Link Customer</th>
             </tr>
           </tfoot>
         </table>
@@ -124,6 +126,7 @@
             {"data": "tid_location"},
             {"data": "dx_mode"},
             {"data": "acquiring_bank"},
+            {"data": "link_customer"},
 
         ];
 
@@ -132,6 +135,18 @@
             "aaData": data,
             "aaSorting": [],    // disable the initial sorting
             "columns": column,
+          "columnDefs": [
+              {
+                "targets": 29,
+                "data": null,
+                "render": function(data, type, row) {
+                    return `
+                    <button class="btn btn-sm btn-info">Link Customer</button>
+                    `
+                },
+                "search": false,
+              },
+          ]
         });
 
         return table
