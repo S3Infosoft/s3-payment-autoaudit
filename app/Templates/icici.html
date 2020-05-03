@@ -22,6 +22,7 @@
               <th>Mode of Payment</th>
               <th>Credit</th>
               <th>Transaction Amount</th>
+              <th>Link Customer</th>
             </tr>
           </thead>
           <tfoot>
@@ -32,6 +33,7 @@
               <th>Mode of Payment</th>
               <th>Credit</th>
               <th>Transaction Amount</th>
+              <th>Link Customer</th>
             </tr>
           </tfoot>
         </table>
@@ -51,7 +53,7 @@
             {"data": "mode_of_payment"},
             {"data": "credit"},
             {"data": "transaction_amount"},
-
+            {"data": "link_customer"},
         ];
 
     function buildTable(data, tableID, column) {
@@ -59,6 +61,18 @@
             "aaData": data,
             "aaSorting": [],    // disable the initial sorting
             "columns": column,
+            "columnDefs": [
+                {
+                "targets": 6,
+                "data": null,
+                "render": function(data, type, row) {
+                    return `
+                    <button class="btn btn-sm btn-info">Link Customer</button>
+                    `
+                },
+                "search": false,
+              },
+            ]
         });
 
         return table

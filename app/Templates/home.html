@@ -20,8 +20,9 @@
               <thead>
                   <tr>
                       {% for j in i.0   %}
-                          <td align = 'center'>{{ j }}</td>
+                          <th align = 'center'>{{ j }}</th>
                       {% endfor %}
+                      <th>Link Customber</th>
                   </tr>
               </thead>
               <tbody>
@@ -30,6 +31,7 @@
                       {% for key, value in j.items %}
                           <td>{{ value }}</td>
                       {% endfor %}
+                    <td><a class="btn btn-primary">Link Customer</a></td>
                   </tr>
                   {% endfor %}
               </tbody>
