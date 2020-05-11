@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 {%  block content %}
-  <div class="list-group">
+  <a class="btn btn-primary  float-right" href="{% url 'customer_create' %}" >Create Customer</a>
+  <div class="row mx-md-n3">
+  <div class="col px-md-3">
+  <div class="list-group float-md-none">
     {%  for object in object_list %}
-    <a href="{{ object.get_absolute_url }}" class="list-group-item list-group-item-action">{{ object.name }}</a>
-    {% endfor %}
+    <a href="{{ object.get_absolute_url }}" class="list-group-item list-group-item-action">{{ object.name }}
+    </a>
+    {% endfor %}<
+  </div>
+  </div>
   </div>
 {%  endblock %}

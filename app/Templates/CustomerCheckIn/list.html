@@ -1,5 +1,6 @@
 {%  extends 'base.html' %}
 {%  block content %}
+  <a class="btn btn-primary float-right" href="{% url 'checkin_create' %}">Create Customer CheckIn</a>
   <table class ="table">
     {%  for object in object_list %}
       <tr>

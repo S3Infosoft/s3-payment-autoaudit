@@ -69,6 +69,7 @@
           <i class="fas fa-fw fa-cog"></i>
           <span>Data Display</span>
         </a>
+
         <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" href="{% url 'icici' %}">ICICI</a>
@@ -76,7 +77,23 @@
             </div>
 
         </div>
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+           aria-controls="collapseThree">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Manual Audit</span>
+        </a>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" href="{% url 'customer_list' %}">Customer</a>
+              <a class="collapse-item" href="{% url 'checkin_list' %}">Customer CheckIn</a>
+              <a class="collapse-item" href="{% url 'cashentry_list' %}">Cash Entry</a>
+            </div>
+
+        </div>
+
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+           aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
           <span>Functionalities</span>
         </a>
