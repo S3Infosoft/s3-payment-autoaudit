@@ -29,6 +29,75 @@
       </div>
     </div>
 
+    <div>
+      <h4 class="font-weight-bolder">Type 1</h4>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Checkin</th>
+            <th>Checkout</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in object.type1.all %}
+            <tr>
+              <td>{{ i.Booking_ID }}</td>
+              <td>{{ i.Check_In }}</td>
+              <td>{{ i.Check_Out }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="3" class="text-center font-weight-bold">No Data</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <hr>
+
+      <h4 class="font-weight-bolder">Type 8</h4>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>Transaction ID</th>
+            <th>Transaction Value Date</th>
+            <th>Transaction Posted Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in object.type8.all %}
+            <tr>
+              <td>{{ i.transaction_id }}</td>
+              <td>{{ i.transaction_value_date }}</td>
+              <td>{{ i.transaction_posted_date }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="3" class="text-center font-weight-bold">No Data</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <hr>
+      <h4 class="font-weight-bolder">Type 9</h4>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Mobile</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in object.type9.all %}
+            <tr>
+              <td>{{ i.id }}</td>
+              <td>{{ i.date }}</td>
+              <td>{{ i.mobile }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="3" class="text-center font-weight-bold">No Data</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
       <div class="modal-dialog" role="document">

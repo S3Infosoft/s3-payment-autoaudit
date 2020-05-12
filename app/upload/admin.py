@@ -9,7 +9,8 @@ class CustomerCheckInAdmin(admin.ModelAdmin):
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in Customer._meta.get_fields()[2:]]
+    list_display = [field.name for field in Customer._meta.get_fields()[2:-3]]
+    list_display_links = "id", "name"
 
 
 @admin.register(Type1)
@@ -20,12 +21,12 @@ class Type1(admin.ModelAdmin):
 
 @admin.register(Type8)
 class Type8Admin(admin.ModelAdmin):
-    list_display = [field.name for field in Type8._meta.get_fields()]
+    list_display = [field.name for field in Type8._meta.get_fields()[1:]]
 
 
 @admin.register(Type9)
 class Type9Admin(admin.ModelAdmin):
-    list_display = [field.name for field in Type9._meta.get_fields()]
+    list_display = [field.name for field in Type9._meta.get_fields()[1:]]
 
 
 admin.site.register(Type2)

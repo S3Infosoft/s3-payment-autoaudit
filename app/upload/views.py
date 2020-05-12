@@ -29,6 +29,14 @@ DATE_MONTH = {
 }
 
 
+def link_customer(request, pk, type_, data_id):
+    if type_[-1] == "1":
+        pass
+    elif type_[-1] == "8":
+        Customer.objects.get(pk=pk).type8.add(data_id)
+    return redirect("customer_detail", pk)
+
+
 def send_master_data(request, month, year):
     return JsonResponse(provide_master_data(month, year))
 

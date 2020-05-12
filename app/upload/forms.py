@@ -80,7 +80,7 @@ class Type9Form(forms.ModelForm):
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = "__all__"
+        exclude = "type1", "type9", "type8"
 
     def __init__(self, *args, **kwargs):
         super(CustomerForm, self).__init__(*args, **kwargs)

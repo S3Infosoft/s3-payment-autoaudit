@@ -8,4 +8,5 @@ urlpatterns = [
             views.Type1ListAPIView.as_view(), name="list_api"),
     path('icici/', views.Type8ListAPIView.as_view(), name="list_api"),
     path('mswipe/', views.Type9ListAPIView.as_view(), name="list_api"),
+    path("customer-names/", views.CustomerNameListView.as_view(), name='customer_name_list'),
 ]
