@@ -31,7 +31,20 @@
                       {% for key, value in j.items %}
                           <td>{{ value }}</td>
                       {% endfor %}
-                    <td><a class="btn btn-primary">Link Customer</a></td>
+                    <td>
+                      <div class="dropdown show">
+                      <a class="btn btn-primary dropdown-toggle link-customer" data-target="" href="#" role="button"
+                      id="dropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                       onclick="fetchCustomerNames(this)">
+                        Link Customer
+                      </a>
+
+                      <div class="dropdown-menu table-options" aria-labelledby="dropdownMenuLink">
+
+                      </div>
+                    </div>
+                    </td>
                   </tr>
                   {% endfor %}
               </tbody>

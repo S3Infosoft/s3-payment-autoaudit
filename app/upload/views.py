@@ -34,6 +34,8 @@ def link_customer(request, pk, type_, data_id):
         pass
     elif type_[-1] == "8":
         Customer.objects.get(pk=pk).type8.add(data_id)
+    elif type_[-1] == "9":
+        Customer.objects.get(pk=pk).type9.add(data_id)
     return redirect("customer_detail", pk)
 
 

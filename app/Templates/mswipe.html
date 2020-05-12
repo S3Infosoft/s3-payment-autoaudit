@@ -141,7 +141,18 @@
                 "data": null,
                 "render": function(data, type, row) {
                     return `
-                    <button class="btn btn-sm btn-info">Link Customer</button>
+                     <div class="dropdown show">
+                      <a class="btn btn-primary dropdown-toggle link-customer" data-target="" href="#" role="button"
+                      id="dropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                       onclick="fetchCustomerNames(this)">
+                        Link Customer
+                      </a>
+
+                      <div class="dropdown-menu table-options" aria-labelledby="dropdownMenuLink">
+
+                      </div>
+                    </div>
                     `
                 },
                 "search": false,
@@ -165,6 +176,29 @@
           }
         })
       });
+    function fetchCustomerNames(event) {
+      const detailId = $($(event).parents()[2]).children()[0].innerText;
+      $.ajax({
+        url: "{% url 'customer_name_list' %}",
+        method: "GET",
+        success: function(data) {
+          console.log(data);
+          $(".table-options").empty();
+          data.forEach(function (d) {
+            const href ="{% url 'link_customer' pk=456 type_='789' data_id='123' %}".replace(/456/, d[1])
+                                                                                    .replace(/789/, "type9")
+                                                                                    .replace(/123/, detailId);
+            $(".table-options").append(
+                `<a class="dropdown-item" href="${href}">${d[0]}</a>`
+
+            )
+          });
+          },
+          error: function(err) {
+          console.log(err);
+        },
+      })
+    }
   </script>
 
 {% endblock extrajs %}
