@@ -1,6 +1,15 @@
 from rest_framework import serializers
 
-from ..models import Type1, Type8, Type9
+from ..models import Type1, Type8, Type9, Customer
+
+
+class CustomerNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = "name",
+
+    def to_representation(self, instance):
+        return instance.name, instance.id
 
 
 class Type1Serializers(serializers.ModelSerializer):

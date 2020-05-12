@@ -25,5 +25,5 @@ urlpatterns = [
     path('cashentrydetail/<int:pk>', views.CashEntryDetailView.as_view(), name='cashentry_detail'),
     path("cashentryupdate/<int:pk>/", views.update_cashentry, name="cashentry_update"),
     path("cashentrydelete/<int:pk>/", views.CashEntryDeleteView.as_view(), name="cashentry_delete"),
-
+    path("link-cutomer/<pk>/<type_>/<data_id>/", views.link_customer, name="link_customer"),
 ]

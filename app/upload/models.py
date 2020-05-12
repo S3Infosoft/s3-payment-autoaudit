@@ -254,6 +254,9 @@ class Customer(models.Model):
     phone = models.CharField(max_length=15)
     id_from_mvr = models.CharField(max_length=40)
     notes = models.CharField(max_length=100)
+    type1 = models.ManyToManyField(Type1)
+    type8 = models.ManyToManyField(Type8, related_name="linked_customer")
+    type9 = models.ManyToManyField(Type9, related_name="linked_customer")
 
     def __str__(self):
         return self.name
